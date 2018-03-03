@@ -24,6 +24,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'rails-controller-testing'
   gem 'shoulda'
+  gem 'factory_bot_rails', '~> 4.0'
+  gem 'nyan-cat-formatter'
 end
 
 # Use Puma as the app server
@@ -48,4 +50,4 @@ end
 
 gem 'bootstrap-sass'
 
-gem 'devise'
+gem 'devise', '~> 4.1'
