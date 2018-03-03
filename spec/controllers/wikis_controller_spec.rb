@@ -2,8 +2,11 @@ require 'rails_helper'
 require 'support/controller_macros'
 
 RSpec.describe WikisController, type: :controller do
-  login_user
+  let(:user) { create(:user) }
   let(:wiki) { create(:wiki) }
+  before(:each) do
+    sign_in(user)
+  end
 
   describe "GET #index" do
     it "returns http success" do
@@ -58,16 +61,16 @@ RSpec.describe WikisController, type: :controller do
 
   describe "POST #create" do
     it "increases the number of wikis by 1" do
-      expect{ post :create, params: { title: RandomData.random_sentence, body: RandomData.random_paragraph } }.to change(Wiki,:count).by(1)
+      expect{ post :create, params: { post: { title: RandomData.random_sentence, body: RandomData.random_paragraph, private: false } } }.to change(Wiki,:count).by(1)
     end
 
     it "assigns the new wiki to @wiki" do
-      post :create, params: { title: RandomData.random_sentence, body: RandomData.random_paragraph }
+      post :create, params: { post: { title: RandomData.random_sentence, body: RandomData.random_paragraph, private: false } }
       expect(assigns(:wiki)).to eq Wiki.last
     end
 
     it "redirects to the new wiki" do
-      post :create, params: { title: RandomData.random_sentence, body: RandomData.random_paragraph }
+      post :create, params: { post: { title: RandomData.random_sentence, body: RandomData.random_paragraph, private: false } }
       expect(response).to redirect_to Wiki.last
     end
   end
