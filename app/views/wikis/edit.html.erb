@@ -1,2 +1,8 @@
-<h1>Wikis#edit</h1>
-<p>Find me in app/views/wikis/edit.html.erb</p>
+<div class="page-header">
+  <h1>
+    Edit "<%= @wiki.title %>"
+  </h1>
+  <%= truncate(@wiki.body, length: 17) { link_to "view full wiki", @wiki } %>
+</div>
+
+<%= render 'form' %>

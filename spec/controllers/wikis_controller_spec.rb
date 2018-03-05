@@ -1,9 +1,10 @@
 require 'rails_helper'
-require 'support/controller_macros'
 
 RSpec.describe WikisController, type: :controller do
   let(:user) { create(:user) }
-  let(:wiki) { create(:wiki) }
+  let(:another_user) { create(:user) }
+  let(:wiki) { create(:wiki, user: user) }
+  let(:another_wiki) { create(:wiki, user: another_user) }
   before(:each) do
     sign_in(user)
   end
@@ -22,6 +23,11 @@ RSpec.describe WikisController, type: :controller do
     it "assigns wiki to @wikis" do
       get :index
       expect(assigns(:wikis)).to eq([wiki])
+    end
+
+    it "does not assign another user's wiki to @wikis" do
+      get :index
+      expect(assigns(:wikis)).not_to eq([another_wiki])
     end
   end
 
@@ -55,22 +61,22 @@ RSpec.describe WikisController, type: :controller do
 
     it "instantiates @wiki" do
       get :new
-      expect(assigns(wiki)).not_to be_nil
+      expect(assigns(:wiki)).not_to be_nil
     end
   end
 
   describe "POST #create" do
     it "increases the number of wikis by 1" do
-      expect{ post :create, params: { post: { title: RandomData.random_sentence, body: RandomData.random_paragraph, private: false } } }.to change(Wiki,:count).by(1)
+      expect{ post :create, params: { wiki: { title: RandomData.random_sentence, body: RandomData.random_paragraph, private: false } } }.to change(Wiki,:count).by(1)
     end
 
     it "assigns the new wiki to @wiki" do
-      post :create, params: { post: { title: RandomData.random_sentence, body: RandomData.random_paragraph, private: false } }
+      post :create, params: { wiki: { title: RandomData.random_sentence, body: RandomData.random_paragraph, private: false } }
       expect(assigns(:wiki)).to eq Wiki.last
     end
 
     it "redirects to the new wiki" do
-      post :create, params: { post: { title: RandomData.random_sentence, body: RandomData.random_paragraph, private: false } }
+      post :create, params: { wiki: { title: RandomData.random_sentence, body: RandomData.random_paragraph, private: false } }
       expect(response).to redirect_to Wiki.last
     end
   end
