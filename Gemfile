@@ -26,6 +26,7 @@ group :development, :test do
   gem 'shoulda'
   gem 'factory_bot_rails', '~> 4.0'
   gem 'nyan-cat-formatter'
+  gem 'pundit-matchers', '~> 1.4.1'
 end
 
 # Use Puma as the app server
@@ -51,3 +52,5 @@ end
 gem 'bootstrap-sass'
 
 gem 'devise', '~> 4.1'
+
+gem 'pundit'
