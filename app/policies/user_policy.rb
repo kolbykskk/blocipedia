@@ -9,4 +9,8 @@ class UserPolicy
   def dashboard?
     user.present?
   end
+
+  def downgrade?
+    user.try(:premium?)
+  end
 end
