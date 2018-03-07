@@ -10,7 +10,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
 
-  validates :name, length: { minimum: 3, maximum: 18 }, presence: true
+  validates :name, length: { minimum: 3 }, presence: true
 
   enum role: [:standard, :premium, :admin]
 end
