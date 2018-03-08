@@ -15,7 +15,7 @@
   <% end %>
   <%= form_group_tag(@wiki.errors[:body]) do %>
     <%= f.label :body %>
-    <%= f.text_field :body, class: 'form-control', rows: 8, placeholder: "Enter wiki body" %>
+    <%= f.text_area :body, class: 'form-control', rows: 8, placeholder: "Enter wiki body" %>
   <% end %>
   <% if current_user.premium? || current_user.admin? %>
     <div class="form-group">
