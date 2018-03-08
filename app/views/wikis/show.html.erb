@@ -1,11 +1,16 @@
 <div class="row">
   <div class="col-md-8 h1">
+    <% if @wiki.private == true %>
+      <small><span class="label label-warning">Private</span></small>
+    <% end %>
     <%= @wiki.title %>
     <small> submitted <%= time_ago_in_words(@wiki.created_at) %> ago</small>
   </div>
   <div class="col-md-4 h1">
     <%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-info' %>
-    <%= link_to "Delete", @wiki, method: :delete, class: 'btn btn-danger' %>
+    <% if @wiki.user == current_user %>
+      <%= link_to "Delete", @wiki, method: :delete, class: 'btn btn-danger' %>
+    <% end %>
   </div>
 </div>
 <hr>
