@@ -2,17 +2,17 @@ class WikiPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.premium? || user.admin?
+      if user.try(:premium?) || user.try(:admin?)
         scope.all
-      elsif user.standard?
+      elsif user.try(:standard?)
         scope.where(private: "f")
       end
     end
 
     def dashboard_scope
-      if user.premium? || user.admin?
+      if user.try(:premium?) || user.try(:admin?)
         scope.where(user: user)
-      elsif user.standard?
+      elsif user.try(:standard?)
         scope.where(user: user, private: "f")
       end
     end
@@ -39,7 +39,7 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def show?
-    if user.standard? && record.private == true
+    if user.try(:standard?) && record.private == true
       false
     else
       true

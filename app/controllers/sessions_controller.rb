@@ -10,10 +10,7 @@ class SessionsController < Devise::SessionsController
   def downgrade
     authorize(User)
     current_user.standard!
-    current_user.wikis.each do |wiki|
-      wiki.private = false
-      wiki.save!
-    end
+    current_user.update_private
     flash[:notice] = "Your account has been downgraded back to standard. Feel free to upgrade again in the future!"
     redirect_to users_dashboard_path
   end

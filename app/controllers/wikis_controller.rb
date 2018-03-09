@@ -2,7 +2,7 @@ class WikisController < ApplicationController
 
   def index
     @wikis = policy_scope(Wiki)
-    authorize @wikis
+    authorize Wiki
   end
 
   def show

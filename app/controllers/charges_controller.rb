@@ -3,6 +3,7 @@ class ChargesController < ApplicationController
   before_action :authenticate_user!
 
   def new
+    @amount = 1500
     authorize self
     @stripe_btn_data = {
       key: "#{ Rails.configuration.stripe[:publishable_key] }",

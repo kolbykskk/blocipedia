@@ -13,4 +13,9 @@ class User < ApplicationRecord
   validates :name, length: { minimum: 3 }, presence: true
 
   enum role: [:standard, :premium, :admin]
+
+  def update_private
+    self.wikis.where(private: 't').update_all(private: 'f')
+  end
+
 end
