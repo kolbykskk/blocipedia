@@ -9,7 +9,9 @@ Rails.application.routes.draw do
     put 'users/downgrade' => 'sessions#downgrade'
   end
 
-  resources :wikis
+  resources :wikis do
+    resources :collaborators, only: [:new, :create, :destroy]
+  end
 
   resources :charges, only: [:new, :create]
 

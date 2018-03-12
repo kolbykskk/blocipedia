@@ -26,6 +26,7 @@ group :development, :test do
   gem 'shoulda'
   gem 'factory_bot_rails', '~> 4.0'
   gem 'nyan-cat-formatter'
+  gem 'sqlite3'
   gem 'pundit-matchers', '~> 1.4.1'
 end
 

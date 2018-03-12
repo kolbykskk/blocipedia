@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :wikis
+  has_many :collaborators
 
   before_save { self.email = email.downcase }
   after_initialize { self.role ||= :standard }

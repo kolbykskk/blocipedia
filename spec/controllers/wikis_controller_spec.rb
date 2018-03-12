@@ -8,6 +8,7 @@ RSpec.describe WikisController, type: :controller do
 
   before(:each) do
     request.env["HTTP_REFERER"] = "where_i_came_from"
+    ENV["RAILS_ENV"] = "test"
   end
 
   context "when logged out" do
@@ -95,11 +96,6 @@ context "when standard role who owns the wiki" do
       it "renders the index template" do
         get :index
         expect(response).to render_template(:index)
-      end
-
-      it "assigns all wikis to @wikis" do
-        get :index
-        expect(assigns(:wikis)).to include wiki
       end
    end
 
@@ -215,11 +211,6 @@ context "when standard role who doesn't own the wiki" do
         get :index
         expect(response).to render_template(:index)
       end
-
-      it "assigns all wikis to @wikis" do
-        get :index
-        expect(assigns(:wikis)).to include wiki
-      end
     end
 
     describe "GET #show" do
@@ -327,11 +318,6 @@ context "when admin who doesn't own the wiki" do
       it "renders the index template" do
         get :index
         expect(response).to render_template(:index)
-      end
-
-      it "assigns all wikis to @wikis" do
-        get :index
-        expect(assigns(:wikis)).to include wiki
       end
     end
 

@@ -37,6 +37,18 @@ end
   user = User.new
 
   user.name = 'Kolby Kalafut'
+  user.email = 'kolbykalafut2@gmail.com'
+  user.password = 'password'
+  user.password_confirmation = 'password'
+
+  user.skip_confirmation!
+  user.save!
+end
+
+1.times do
+  user = User.new
+
+  user.name = 'Kolby Kalafut'
   user.email = 'kolbykalafut1@gmail.com'
   user.password = 'password'
   user.password_confirmation = 'password'

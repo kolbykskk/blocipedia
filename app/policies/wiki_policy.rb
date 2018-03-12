@@ -2,11 +2,30 @@ class WikiPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.try(:premium?) || user.try(:admin?)
-        scope.all
-      elsif user.try(:standard?)
-        scope.where(private: "f")
+      wikis = []
+      collaborators = []
+      if user.try(:admin?)
+        wikis = scope.all
+      elsif user.try(:premium?)
+        all_wikis = scope.all
+        all_wikis.each do |wiki|
+          wiki.collaborators.each do |collaborator| collaborators << collaborator.email end
+          if wiki.private == false || wiki.user == user || collaborators.include?(user.email)
+            wikis << wiki
+          end
+        end
+      else
+        all_wikis = scope.all
+        wikis = []
+        collaborators = []
+        all_wikis.each do |wiki|
+          wiki.collaborators.each do |collaborator| collaborators << collaborator.email end
+          if wiki.private == false || collaborators.include?(user.email)
+            wikis << wiki
+          end
+        end
       end
+      wikis
     end
 
     def dashboard_scope
@@ -39,7 +58,9 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def show?
-    if user.try(:standard?) && record.private == true
+    collaborators = []
+    record.collaborators.each do |collaborator| collaborators << collaborator.email end
+    if user.try(:standard?) && record.private == true && collaborators.exclude?(user.email)
       false
     else
       true

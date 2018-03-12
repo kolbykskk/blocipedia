@@ -6,6 +6,7 @@ RSpec.describe Wiki, type: :model do
   let(:wiki) { create(:wiki) }
 
   it { is_expected.to belong_to :user }
+  it { is_expected.to have_many :collaborators }
 
   # Validation tests for title
   it { is_expected.to validate_presence_of(:title) }
