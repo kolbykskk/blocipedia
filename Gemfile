@@ -26,7 +26,6 @@ group :development, :test do
   gem 'shoulda'
   gem 'factory_bot_rails', '~> 4.0'
   gem 'nyan-cat-formatter'
-  gem 'sqlite3'
   gem 'pundit-matchers', '~> 1.4.1'
 end
 
@@ -61,3 +60,5 @@ gem 'faker', '~> 1.8', '>= 1.8.7'
 gem 'stripe'
 
 gem 'redcarpet', '~> 3.4'
+
+gem 'friendly_id', '~> 5.1.0'
