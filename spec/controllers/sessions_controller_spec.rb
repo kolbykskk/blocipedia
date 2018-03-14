@@ -8,7 +8,7 @@ RSpec.describe SessionsController, type: :controller do
       current_user = sign_in(user)
       @request.env["devise.mapping"] = Devise.mappings[:user]
       put :downgrade
-      expect(user.standard?).to be_truthy
+      expect(user.reload.standard?).to be_truthy
     end
   end
 end
